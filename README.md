@@ -6,7 +6,7 @@ It is an unofficial fan work. It is not made by, approved by or associated with 
 
 **Licence.** The code and the texts written for the project are under the MIT licence (`LICENSE`). The pictures, 3D models and sounds are *not*: they are the work of others, used with permission or under their own licences, and stay under those terms (non-commercial use for most of them). See [`CREDITS.md`](CREDITS.md) before reusing anything from `public/assets/`. The ship models and sounds come from **Fate of the Galaxy**, whose team kindly allowed their use in this project.
 
-**Just want to play?** Download a ready-made package from the Releases page (Windows, Linux or macOS): unpack it and run `start.bat` / `start.sh`. Nothing needs installing.
+**Just want to play?** Ready-made packages for Windows, Linux and macOS (unpack, run `start.bat` / `start.sh`, nothing to install) are built with `npm run release`; see [`docs/RELEASING.md`](docs/RELEASING.md).
 
 ## Play
 
