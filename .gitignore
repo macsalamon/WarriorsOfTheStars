@@ -1,0 +1,7 @@
+node_modules/
+dist/
+saves/
+/release/
+
+# pictures and models made while building the ship art (rebuilt with the tools/)
+Models/

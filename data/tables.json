@@ -1,0 +1,108 @@
+{
+  "_notes": [
+    "Game tables: skill, gun values and power, difficulty modifiers, hazard and fire results.",
+    "'-' in hazard cells means no code."
+  ],
+  "pilotSkill": {
+    "_note": "Roll 'quality' dice, sum them, look up the skill code. table[0] is a roll of 1. Used for pilots and gunners.",
+    "quality": { "trainee": 1, "poor": 2, "average": 3, "veteran": 4, "hotshot": 5 },
+    "table": ["2D","2D+1","2D+2","3D","3D+1","3D+2","4D","4D+1","4D+2","5D","5D+1","5D+2","6D","6D+1","6D+2","7D","7D+1","7D+2","8D","8D+1","8D+2","9D","9D+1","9D+2","10D","10D+1","10D+2","11D","11D+1","11D+2"]
+  },
+  "gunCodes": {
+    "first": { "S": "Single", "D": "Double", "T": "Triple", "Q": "Quad" },
+    "second": { "L": "Light", "M": "Medium", "H": "Heavy" },
+    "third": { "F": "Fixed", "S": "Swivel", "P": "Pivot" },
+    "suffix": { "(I)": "Ion cannon", "(R)": "Rear-mounted" },
+    "special": { "CM": "Concussion missiles", "CB": "Concussion bombs", "PT": "Proton torpedoes" }
+  },
+  "gunneryValues": {
+    "_note": "Key = first + third letter of the gun code. Columns = range 1,2,3,4,5,6-10. std=true: used in the Standard Game. Ion cannons subtract 3. The QS value at range 6-10 (17) is lower than at range 5 (18); kept as it is.",
+    "ranges": ["1","2","3","4","5","6-10"],
+    "ionModifier": -3,
+    "rows": {
+      "SP": { "std": false, "toHit": [17,15,15,18,21,23] },
+      "SS": { "std": true,  "toHit": [16,18,20,22,24,27] },
+      "SF": { "std": true,  "toHit": [16,19,22,24,27,30] },
+      "DP": { "std": false, "toHit": [16,14,14,17,20,22] },
+      "DS": { "std": true,  "toHit": [14,16,18,20,22,24] },
+      "DF": { "std": true,  "toHit": [15,18,21,23,26,29] },
+      "TP": { "std": false, "toHit": [15,13,13,16,19,21] },
+      "TS": { "std": true,  "toHit": [12,14,16,18,20,21] },
+      "TF": { "std": true,  "toHit": [14,17,20,22,25,28] },
+      "QP": { "std": false, "toHit": [14,12,12,15,18,20] },
+      "QS": { "std": true,  "toHit": [10,12,14,16,18,17], "verify": true },
+      "QF": { "std": true,  "toHit": [13,16,19,21,24,27] },
+      "PT": { "std": false, "toHit": [21,23,25,28,32,38] },
+      "CM": { "std": false, "toHit": [22,24,26,28,30,35] },
+      "CB": { "std": false, "toHit": [30,null,null,null,null,null] }
+    }
+  },
+  "gunneryPower": {
+    "_note": "Key = first + second letter of the gun code. Columns = range 1,2,3,4,5,6-10. 'ion' is the flat power at all ranges when the gun is an ion cannon.",
+    "rows": {
+      "SL": { "power": [1,0,0,-1,-1,-2], "ion": 0 },
+      "DL": { "power": [2,1,0,0,0,-1], "ion": -1 },
+      "TL": { "power": [2,2,1,0,0,-1], "ion": -2 },
+      "QL": { "power": [3,3,2,1,0,0], "ion": -3 },
+      "SM": { "power": [2,2,1,1,0,0], "ion": -2 },
+      "DM": { "power": [3,3,2,1,1,0], "ion": -3 },
+      "TM": { "power": [3,3,3,2,2,1], "ion": -4 },
+      "QM": { "power": [4,4,3,3,2,2], "ion": -5 },
+      "SH": { "power": [3,3,2,2,2,1], "ion": -3 },
+      "DH": { "power": [5,5,4,3,3,2], "ion": -4 },
+      "TH": { "power": [7,7,6,5,5,4], "ion": -5 },
+      "QH": { "power": [9,9,8,7,7,6], "ion": -6 }
+    },
+    "specialWeapons": { "PT": "2D", "CM": "3D", "CB": "4D" }
+  },
+  "difficultyModifiers": {
+    "_note": "Each pair is [single, double]. Rolls by both ships cancel; jinks are cumulative.",
+    "firer":  { "halfLoop": [5, 5], "roll": [5, 10], "jink": [5, 10], "pinpointFire": [-5, -10], "tracking": [-5, -10] },
+    "target": { "halfLoop": [-5, -5], "roll": [5, 10], "jink": [5, 10], "tracking": [-5, -10] },
+    "speed": "same facing: + difference in speeds; opposite facing: + both speeds; other: + target speed"
+  },
+  "hazard": {
+    "_note": "Roll 2d6; a 7 is always no effect. Columns: 2,3,4,5,6,8,9,10,11,12. Each row has a top and bottom code per column; a minor hazard uses only the top. Row A is used only with the damage rules.",
+    "columns": [2,3,4,5,6,8,9,10,11,12],
+    "rows": {
+      "A": { "top": ["A+3","A+3","SPD?","LOSE","LOSE","LOSE","LOSE","LOSE","A+3","SPD?"], "bottom": ["A+3","LOSE","LOSE","SPD2?","LOSE","LOSE","Stb","Stb","SPD2?","A+6"] },
+      "B": { "top": ["A+6","A+3","SPD?","A+3","T+1","Roll","Roll","T+1","A+3","SPD?"], "bottom": ["Stb","A+3","T+2","T+2","T+1","Roll","A+3","L","Stb","A+6"] },
+      "C": { "top": ["Roll","T+1","SPD?","LOSE","A+3","A+3","Roll","LOSE","SPD?","-"], "bottom": ["E","Stb","L","T+2","LOSE","LOSE","LOSE","LOSE","L","Stb"] },
+      "D": { "top": ["A+3","LOSE","Roll","-","LOSE","LOSE","A+3","LOSE","LOSE","LOSE"], "bottom": ["Stb","Roll","Stb","L","LOSE","LOSE","LOSE","SPD2?","L","Stb"] },
+      "E": { "top": ["SPD?","LOSE","T+1","LOSE","-","SPD?","SPD?","A+3","LOSE","LOSE"], "bottom": ["L","Stb","-","Stb","LOSE","LOSE","E","E","L","Roll"] },
+      "F": { "top": ["LOSE","-","T+1","SPD?","-","LOSE","A+3","LOSE","LOSE","-"], "bottom": ["G","T+1","A+3","A+3","Roll","A+3","-","LOSE","Roll","-"] },
+      "G": { "top": ["-","LOSE","-","T+1","-","A+3","SPD?","-","Roll","-"], "bottom": ["-","A+3","Roll","Roll","-","-","A+3","T+1","-","SPD2?"] }
+    }
+  },
+  "fire": {
+    "_note": "Modified roll = 2d6 + power. <=2 is no effect (ion cannons still look up, floor of -1). >=14 destroys. Each entry is the list of damage codes for the column in 'columns'. portStarboard is used only with the advanced arcs.",
+    "columns": [-1,0,1,2,3,4,5,6,7,8,9,10,11,12,13],
+    "front": [
+      ["L","Sk-1","P"], ["Roll","P","T+2"], ["A+6","G","P"], ["G","P","T+1"], ["A+3","G"], ["Roll","Stb"], ["L"], ["E"], ["P"],
+      ["Roll","Sk-1","Body"], ["Stb","G","Body"], ["A+3","P","Body"], ["A+3","P","2Bdy"], ["A+3","P","3Bdy"], ["A+6","2P","4Bdy"]
+    ],
+    "rear": [
+      ["A+3","E","Stb"], ["G","P","T+2"], ["A+3","P","Roll"], ["L","P","T+1"], ["E"], ["Sk-1","G"], ["L"], ["E","Body"], ["P","Body"],
+      ["Stb","P","Body"], ["E","Roll","2Bdy"], ["L","P","2Bdy"], ["A+3","P","3Bdy"], ["E","2P","4Bdy"], ["A+3","2P","5Bdy"]
+    ],
+    "portStarboard": [
+      ["A+3","Sk-1","P"], ["L","Stb","T+3"], ["A+3","L","Stb"], ["L","Stb","P"], ["Roll"], [], ["E"], ["Sk-1"], ["G","P"],
+      ["Roll","Stb","Body"], ["L","P","Body"], ["P","2Bdy"], ["L","P","2Bdy"], ["A+3","P","3Bdy"], ["A+3","2P","4Bdy"]
+    ]
+  },
+  "destroyerAttack": {
+    "_note": "The Star Destroyer Attack Table (23.2), from the chart folder. Key: the modified 2d6 (2 = no fire). Each box: count of guns, gun code, ion cannons ('ion'), and for the ranges 1, 2, 3, 4, 5 and 6-10 the 'to hit' number and the power.",
+    "rows": {
+      "3": { "right": { "count": 1, "code": "TH", "ion": true, "hit": [12,10,10,13,16,18], "power": [-5,-5,-5,-5,-5,-5] } },
+      "4": { "left": { "count": 1, "code": "DH", "hit": [16,14,14,17,20,22], "power": [5,5,4,3,3,2] }, "right": { "count": 1, "code": "SL", "ion": true, "hit": [14,12,12,15,18,20], "power": [0,0,0,0,0,0] } },
+      "5": { "left": { "count": 1, "code": "TH", "hit": [15,13,13,16,19,21], "power": [7,7,6,5,5,4] }, "right": { "count": 1, "code": "DM", "ion": true, "hit": [13,11,11,14,17,19], "power": [-3,-3,-3,-3,-3,-3] } },
+      "6": { "left": { "count": 1, "code": "QH", "hit": [15,13,13,16,19,21], "power": [9,9,8,7,7,6] }, "right": { "count": 1, "code": "TH", "ion": true, "hit": [12,10,10,13,16,18], "power": [-5,-5,-5,-5,-5,-5] } },
+      "7": { "left": { "count": 2, "code": "SH", "hit": [17,15,15,18,21,23], "power": [3,3,2,2,1,1] }, "right": { "count": 1, "code": "DM", "ion": true, "hit": [13,11,11,14,17,19], "power": [-3,-3,-3,-3,-3,-3] } },
+      "8": { "left": { "count": 2, "code": "TH", "hit": [15,13,13,16,19,21], "power": [7,7,6,5,5,4] }, "right": { "count": 1, "code": "QM", "ion": true, "hit": [11,9,9,12,15,17], "power": [-4,-4,-4,-4,-4,-4] } },
+      "9": { "left": { "count": 2, "code": "DH", "hit": [16,14,14,17,20,22], "power": [5,5,4,3,3,2] }, "right": { "count": 1, "code": "QM", "ion": true, "hit": [11,9,9,12,15,17], "power": [-4,-4,-4,-4,-4,-4] } },
+      "10": { "left": { "count": 2, "code": "QH", "hit": [15,13,13,16,19,21], "power": [9,9,8,7,7,6] }, "right": { "count": 1, "code": "QH", "ion": true, "hit": [11,9,9,12,15,17], "power": [-6,-6,-6,-6,-6,-6] } },
+      "11": { "left": { "count": 2, "code": "QM", "hit": [14,12,12,15,18,20], "power": [5,4,4,3,3,2] }, "right": { "count": 3, "code": "DH", "ion": true, "hit": [13,11,11,14,17,19], "power": [-4,-4,-4,-4,-4,-4] } },
+      "12": { "left": { "count": 2, "code": "DH", "hit": [16,14,14,17,20,22], "power": [5,5,4,3,3,2] }, "right": { "count": 4, "code": "QL", "ion": true, "hit": [11,9,9,12,15,17], "power": [-3,-3,-3,-3,-3,-3] } }
+    }
+  }
+}

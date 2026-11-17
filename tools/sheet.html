@@ -1,0 +1,55 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Model contact sheet</title>
+<body style="margin:0;background:#222;color:#ddd;font:12px sans-serif">
+<canvas id="c"></canvas>
+<pre id="log"></pre>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
+const name = new URLSearchParams(location.search).get('m') ?? 'x-wing';
+const log = (t) => (document.getElementById('log').textContent += t + '\n');
+const gltf = await new GLTFLoader().loadAsync(`/Models/${name}.glb`);
+const root = gltf.scene;
+root.updateMatrixWorld(true);
+const box = new THREE.Box3().setFromObject(root);
+const size = box.getSize(new THREE.Vector3());
+const centre = box.getCenter(new THREE.Vector3());
+log(`size ${size.toArray().map((v) => v.toFixed(2))} centre ${centre.toArray().map((v) => v.toFixed(2))}`);
+
+const T = Number(new URLSearchParams(location.search).get("t") ?? 360);
+const views = [
+  ['+Y (looking down)', [0, 1, 0], [0, 0, -1]],
+  ['-Y (looking up)', [0, -1, 0], [0, 0, 1]],
+  ['+Z', [0, 0, 1], [0, 1, 0]],
+  ['-Z', [0, 0, -1], [0, 1, 0]],
+  ['+X', [1, 0, 0], [0, 1, 0]],
+  ['-X', [-1, 0, 0], [0, 1, 0]],
+];
+const canvas = document.getElementById('c');
+canvas.width = T * 3; canvas.height = T * 2;
+const ctx = canvas.getContext('2d');
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+r.setSize(T, T);
+r.setClearColor(0x445566, 1);
+const scene = new THREE.Scene();
+scene.add(root);
+scene.add(new THREE.AmbientLight(0xffffff, 1.2));
+const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+scene.add(sun);
+const radius = Math.max(size.x, size.y, size.z) * 0.6;
+views.forEach(([label, dir, up], i) => {
+  const cam = new THREE.OrthographicCamera(-radius, radius, radius, -radius, 0.01, radius * 20);
+  const d = new THREE.Vector3(...dir);
+  cam.position.copy(centre).addScaledVector(d, radius * 6);
+  cam.up.set(...up);
+  cam.lookAt(centre);
+  sun.position.copy(cam.position).add(new THREE.Vector3(...up).multiplyScalar(radius));
+  r.render(scene, cam);
+  ctx.drawImage(r.domElement, (i % 3) * T, Math.floor(i / 3) * T);
+  ctx.fillStyle = '#fff'; ctx.font = '16px sans-serif';
+  ctx.fillText(label, (i % 3) * T + 8, Math.floor(i / 3) * T + 20);
+});
+window.__done = true;
+</script>

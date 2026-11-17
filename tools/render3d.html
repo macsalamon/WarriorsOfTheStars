@@ -1,0 +1,206 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Model renders, three-quarter views</title>
+<body style="margin:0;background:#334;color:#ddd;font:13px sans-serif">
+<pre id="log"></pre>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { SHIPS, orientation } from './ships.js';
+
+/*
+ * Six pictures per ship, one per hex facing (0 = nose up the screen, then clockwise in steps of 60 degrees), seen from above at an angle
+ * with the light fixed to the camera; and one view from the front for the ship card. The pictures go to Models/renders together with
+ * where the ship's turning centre is in each (so that the six can be lined up when the ship turns). Ships are listed in ships.js.
+ * ?m=x-wing,a-wing (default: all)  &elev=62 &fov=28
+ */
+const log = (t) => (document.getElementById('log').textContent += t + '\n');
+const params = new URLSearchParams(location.search);
+const ids = (params.get('m') ?? Object.keys(SHIPS).join(',')).split(',');
+const ELEV = Number(params.get('elev') ?? 62);
+const FOV = Number(params.get('fov') ?? 28);
+const SIZE = 1400;
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setSize(SIZE, SIZE);
+renderer.setClearColor(0x000000, 0);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const env = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+
+async function save(name, body) {
+  await fetch('/__save?name=' + name, { method: 'POST', body });
+  log('saved ' + name);
+}
+
+/** Silhouette centroid and area of what was drawn. */
+function measure(canvas) {
+  const w = canvas.width, h = canvas.height;
+  const data = canvas.getContext('2d').getImageData(0, 0, w, h).data;
+  let n = 0, sx = 0, sy = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 128) { n++; sx += x; sy += y; }
+  return { area: n, centroid: [sx / n, sy / n] };
+}
+
+try {
+  for (const id of ids) {
+    const cfg = SHIPS[id];
+    let gltf = await new GLTFLoader().loadAsync(`/Models/${cfg.file}.glb`);
+    let root = gltf.scene;
+    const holder = new THREE.Group();
+    holder.add(root);
+    const pivot = new THREE.Group();
+    pivot.add(holder);
+    const scene = new THREE.Scene();
+    scene.add(pivot);
+
+    /** Hangs the model in the pose and orientation wanted, centred on the pivot; returns the radius that holds it. */
+    const arrange = async (pose, orient) => {
+      await cfg.prepare?.(root, gltf, pose);
+      root.updateMatrixWorld(true);
+      holder.position.set(0, 0, 0);
+      holder.quaternion.copy(orientation(orient));
+      holder.updateMatrixWorld(true);
+      const box = new THREE.Box3().setFromObject(holder);
+      let centre = box.getCenter(new THREE.Vector3());
+      let radius = box.getSize(new THREE.Vector3()).length() / 2;
+      if (cfg.centreNodes) {
+        const part = new THREE.Box3();
+        for (const name of cfg.centreNodes) {
+          const n = root.getObjectByName(name);
+          if (n) part.union(new THREE.Box3().setFromObject(n));
+        }
+        if (!part.isEmpty()) {
+          centre = part.getCenter(new THREE.Vector3());
+          // the camera must still see all of the model around that centre
+          radius = 0;
+          for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) radius = Math.max(radius, centre.distanceTo(new THREE.Vector3(x, y, z)));
+        }
+      }
+      holder.position.copy(centre).negate();
+      holder.updateMatrixWorld(true);
+      return radius;
+    };
+
+    const exposure = cfg.exposure ?? 1;
+    scene.environment = env;
+    const dim = cfg.ambient ?? 1;
+    scene.environmentIntensity = 0.12 * exposure * dim;
+    // nearly neutral light (a little warm from the key, a little cool from the fill), so that the models keep the colours of their textures
+    scene.add(new THREE.AmbientLight(0xf2f2f4, 0.55 * exposure * dim));
+    const key = new THREE.DirectionalLight(0xfff1de, 2.4 * exposure);
+    const fill = new THREE.DirectionalLight(0xdbe6ff, 0.5 * exposure);
+    scene.add(key, fill);
+
+    const boardRadius = await arrange('board', cfg.orient);
+    // ships that cast shadows on themselves (the Star Destroyer: its superstructure on its body); the light is fixed to the camera, so the shadows fall the same way in every picture
+    if (cfg.shadows) {
+      key.castShadow = true;
+      key.shadow.mapSize.set(4096, 4096);
+      const r = boardRadius * 1.05;
+      Object.assign(key.shadow.camera, { left: -r, right: r, top: r, bottom: -r, near: 0.1, far: boardRadius * 12 });
+      key.shadow.camera.updateProjectionMatrix();
+      key.shadow.bias = -0.0004;
+      key.shadow.normalBias = boardRadius * 0.0006;
+      root.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+    }
+    // parts that stand still while the rest turns (the base of a turret gun): taken out of the turning group for the board pictures
+    const fixed = (cfg.fixed ?? []).map((n) => root.getObjectByName(n)).filter(Boolean).map((o) => ({ o, parent: o.parent }));
+    root.updateMatrixWorld(true);
+    for (const f of fixed) scene.attach(f.o);
+    const cam = new THREE.PerspectiveCamera(FOV, 1, 0.1, 1e6);
+    let dist = 1;
+    const setDistance = (radius) => {
+      dist = (radius * 1.08) / Math.sin((FOV * Math.PI) / 360);
+      cam.near = radius * 0.1;
+      cam.far = radius * 40;
+      cam.updateProjectionMatrix();
+    };
+    setDistance(boardRadius);
+
+    /** Camera at the given elevation and azimuth (0 = behind the ship, looking along its nose, 180 = in front of it). */
+    const place = (elev, azim) => {
+      const e = (elev * Math.PI) / 180, a = (azim * Math.PI) / 180;
+      cam.position.set(Math.sin(a) * Math.cos(e) * dist, Math.sin(e) * dist, -Math.cos(a) * Math.cos(e) * dist);
+      cam.up.set(0, 1, 0);
+      cam.lookAt(0, 0, 0);
+      cam.updateMatrixWorld(true);
+      // light fixed to the camera: key from the upper left, fill from the right
+      const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0);
+      const up = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+      const toward = cam.position.clone().normalize();
+      const L = cfg.light ?? { up: 1.2, right: -0.9, toward: 0.5 };
+      key.position.copy(up).multiplyScalar(L.up).addScaledVector(right, L.right).addScaledVector(toward, L.toward).multiplyScalar(dist * 0.4);
+      fill.position.copy(right).multiplyScalar(1).addScaledVector(toward, 0.4).multiplyScalar(dist * 0.4);
+    };
+
+    const meta = { id, elev: ELEV, fov: FOV, facings: [] };
+    const shoot = (name) => {
+      renderer.render(scene, cam);
+      const c = document.createElement('canvas');
+      c.width = SIZE;
+      c.height = SIZE;
+      c.getContext('2d').drawImage(renderer.domElement, 0, 0);
+      const p = new THREE.Vector3(0, 0, 0).project(cam);
+      const info = { ...measure(c), anchor: [((p.x + 1) / 2) * SIZE, ((1 - p.y) / 2) * SIZE] };
+      return new Promise((r) => c.toBlob(async (b) => { await save(name, b); r(info); }, 'image/png'));
+    };
+
+    for (let f = 0; f < 6; f++) {
+      place(ELEV, 0);
+      // the camera looks down at an angle, so a ground direction is squashed on the screen: turn the ship so that its nose
+      // points exactly f * 60 degrees clockwise from up on the screen, the way the board draws it
+      const theta = (f * 60 * Math.PI) / 180;
+      const azimuth = Math.atan2(Math.sin(theta), Math.cos(theta) / Math.sin((ELEV * Math.PI) / 180));
+      pivot.rotation.y = -azimuth;
+      meta.facings.push(await shoot(`${id}-3d-f${f}.png`));
+    }
+
+    // the ship card: from the front and above, turned a little
+    pivot.rotation.y = 0;
+    for (const f of fixed) f.parent.attach(f.o);
+    if (cfg.cardFile) {
+      holder.remove(root);
+      gltf = await new GLTFLoader().loadAsync(`/Models/${cfg.cardFile}.glb`);
+      root = gltf.scene;
+      holder.add(root);
+    }
+    const cardRadius = await arrange('card', cfg.cardOrient ?? cfg.orient);
+    setDistance(Math.max(boardRadius, cardRadius));
+    const front = { elev: 28, yaw: 22, ...cfg.front };
+    const felev = Number(params.get('felev') ?? front.elev);
+    /** The way the nose points on the screen, in degrees (0 right, 90 down, 180 left, 270 up): the line from the middle of the ship to a point ahead of it. */
+    const noseAngle = () => {
+      const o = new THREE.Vector3(0, 0, 0).project(cam);
+      const n = new THREE.Vector3(0, 0, boardRadius).project(cam);
+      return ((Math.atan2(-(n.y - o.y), n.x - o.x) * 180) / Math.PI + 360) % 360;
+    };
+    let fyaw = Number(params.get('fyaw') ?? front.yaw);
+    // ?fangle=: the yaw at which the nose points that way on the screen (the long ships would otherwise point more up or down than the fighters do)
+    if (params.has('fangle')) {
+      const want = Number(params.get('fangle'));
+      let bestYaw = fyaw;
+      let bestOff = Infinity;
+      for (let yaw = -80; yaw <= 80; yaw += 0.5) {
+        place(felev, 180 - yaw);
+        const off = Math.abs(((noseAngle() - want + 540) % 360) - 180);
+        if (off < bestOff) { bestOff = off; bestYaw = yaw; }
+      }
+      fyaw = bestYaw;
+    }
+    place(felev, 180 - fyaw);
+    // ?fpitch=: the nose raised by that many degrees out of the picture, about the ship's own wing axis (the card pictures of the capital ships)
+    pivot.rotation.x = (-Number(params.get('fpitch') ?? 0) * Math.PI) / 180;
+    meta.frontAngle = noseAngle();
+    meta.frontYaw = fyaw;
+    meta.front = await shoot(`${id}-3d-front.png`);
+    await save(`${id}-3d.json`, JSON.stringify(meta));
+  }
+  window.__done = true;
+  log('done');
+} catch (e) {
+  log('error ' + e + '\n' + (e && e.stack));
+}
+</script>

@@ -1,0 +1,123 @@
+{
+  "_notes": [
+    "Ship data. Where two numbers are given, the first is the standard value and the second the advanced one.",
+    "turn: one 'std/adv' string per speed 1..N. Parentheses = only reachable by overspeed. Length must equal speedMax + 2.",
+    "body: [standard, advanced]. difficulty: the number each action adds to the difficulty of a plan. shields/auxPower null = the ship has none.",
+    "gunnerWeapons / otherWeapons are Advanced/Optional only. pilotGuns may be empty (Freighter and Falcon have turrets only: their pilot fires those ahead, see pilotFiredGuns).",
+    "shieldsAdvancedArcs (big ships): where the shield markers start when the advanced arcs are played; the same total as shields. verify=true marks a ship whose numbers are not certain (none at the moment)."
+  ],
+  "ships": {
+    "tie-interceptor": {
+      "name": "TIE Interceptor", "side": "empire",
+      "pilotGuns": ["QLF"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [5, 3], "speedMax": 8,
+      "turn": ["1/1","2/1","2/1","3/2","4/2","5/3","5/3","5/4","(6)/(5)","(6)/(6)"],
+      "difficulty": { "stabilizer": 3, "halfLoop": 4, "slip": 3, "roll": 3, "jink": 3, "bank": 2, "overturn": 6, "overspeed": 3, "accelerate": 1, "overaccelerate": 5, "decelerate": 2, "overdecelerate": 7, "damageControl": 6, "pinpointFire": 4, "snapFire": 3, "targeting": 3, "angleDeflectors": null },
+      "shields": null, "auxPower": 3, "r2": false
+    },
+    "tie-interceptor-prototype": {
+      "name": "TIE Interceptor Prototype", "side": "empire",
+      "pilotGuns": ["DMF"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [8, 4], "speedMax": 8,
+      "turn": ["1/1","2/1","3/2","3/2","4/2","5/3","5/3","6/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 4, "halfLoop": 4, "slip": 4, "roll": 3, "jink": 3, "bank": 2, "overturn": 7, "overspeed": 4, "accelerate": 2, "overaccelerate": 6, "decelerate": 3, "overdecelerate": 9, "damageControl": 6, "pinpointFire": 2, "snapFire": 4, "targeting": 4, "angleDeflectors": null },
+      "shields": null, "auxPower": 4, "r2": false
+    },
+    "tie-fighter": {
+      "name": "TIE Fighter", "side": "empire",
+      "pilotGuns": ["DMF"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [3, 2], "speedMax": 7,
+      "turn": ["1/1","2/1","3/2","3/2","4/3","5/4","6/5","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 4, "halfLoop": 5, "slip": 4, "roll": 3, "jink": 3, "bank": 3, "overturn": 8, "overspeed": 4, "accelerate": 2, "overaccelerate": 7, "decelerate": 3, "overdecelerate": 10, "damageControl": 7, "pinpointFire": 5, "snapFire": 4, "targeting": 5, "angleDeflectors": null },
+      "shields": null, "auxPower": 2, "r2": false
+    },
+    "tie-bomber": {
+      "name": "TIE Bomber", "side": "empire",
+      "pilotGuns": ["DLF"], "gunnerWeapons": [], "otherWeapons": ["1x 60CB"],
+      "body": [8, 7], "speedMax": 5,
+      "turn": ["1/1","2/2","3/3","4/4","5/5","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 5, "halfLoop": 6, "slip": 3, "roll": 5, "jink": 4, "bank": 4, "overturn": 12, "overspeed": 5, "accelerate": 3, "overaccelerate": 9, "decelerate": 3, "overdecelerate": 11, "damageControl": 6, "pinpointFire": 6, "snapFire": 2, "targeting": 6, "angleDeflectors": null },
+      "shields": null, "auxPower": 1, "r2": false
+    },
+    "imperial-shuttle": {
+      "name": "Lambda-class Shuttle", "side": "empire",
+      "pilotGuns": ["QLS", "QMF"], "gunnerWeapons": ["DLP(R)"], "otherWeapons": [],
+      "body": [12, 10], "speedMax": 4,
+      "turn": ["1/1","2/2","4/3","5/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 5, "halfLoop": 7, "slip": 5, "roll": 7, "jink": 7, "bank": 4, "overturn": 12, "overspeed": 6, "accelerate": 3, "overaccelerate": 9, "decelerate": 2, "overdecelerate": 8, "damageControl": 6, "pinpointFire": 4, "snapFire": 4, "targeting": 7, "angleDeflectors": 4 },
+      "shields": 6, "auxPower": 2, "r2": false, "shieldsAdvancedArcs": { "front": 2, "rear": 2, "left": 1, "right": 1 }
+    },
+    "x-wing": {
+      "name": "X-wing", "side": "rebel",
+      "pilotGuns": ["QMF"], "gunnerWeapons": [], "otherWeapons": ["2x 6PT"],
+      "body": [5, 4], "speedMax": 6,
+      "turn": ["1/1","2/1","3/2","4/3","4/4","5/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 3, "halfLoop": 5, "slip": 3, "roll": 4, "jink": 3, "bank": 2, "overturn": 7, "overspeed": 4, "accelerate": 3, "overaccelerate": 7, "decelerate": 2, "overdecelerate": 7, "damageControl": 9, "pinpointFire": 4, "snapFire": 4, "targeting": 4, "angleDeflectors": 3 },
+      "shields": 2, "auxPower": null, "r2": true
+    },
+    "y-wing-1seat": {
+      "name": "Y-wing (1-seat)", "side": "rebel",
+      "pilotGuns": ["DMF", "DLF(I)"], "gunnerWeapons": [], "otherWeapons": ["2x 8PT"],
+      "body": [6, 5], "speedMax": 6,
+      "turn": ["1/1","2/2","3/2","4/3","5/4","6/5","(7)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 4, "halfLoop": 6, "slip": 4, "roll": 5, "jink": 4, "bank": 3, "overturn": 10, "overspeed": 5, "accelerate": 1, "overaccelerate": 5, "decelerate": 3, "overdecelerate": 9, "damageControl": 9, "pinpointFire": 5, "snapFire": 5, "targeting": 5, "angleDeflectors": 3 },
+      "shields": 2, "auxPower": null, "r2": true
+    },
+    "y-wing-2seat": {
+      "name": "Y-wing (2-seat)", "side": "rebel",
+      "pilotGuns": ["DMF"], "gunnerWeapons": ["DLP(I)"], "otherWeapons": ["2x 8PT"],
+      "body": [6, 5], "speedMax": 6,
+      "turn": ["1/1","2/2","3/2","4/3","5/4","6/5","(7)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 5, "halfLoop": 7, "slip": 4, "roll": 6, "jink": 4, "bank": 3, "overturn": 10, "overspeed": 5, "accelerate": 2, "overaccelerate": 6, "decelerate": 3, "overdecelerate": 9, "damageControl": 8, "pinpointFire": 5, "snapFire": 5, "targeting": 5, "angleDeflectors": 3 },
+      "shields": 2, "auxPower": null, "r2": true
+    },
+    "a-wing": {
+      "name": "A-wing", "side": "rebel",
+      "pilotGuns": ["DMS"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [4, 3], "speedMax": 9,
+      "turn": ["1/1","2/1","2/1","3/2","3/2","4/3","5/3","5/4","6/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 2, "halfLoop": 4, "slip": 2, "roll": 3, "jink": 2, "bank": 1, "overturn": 4, "overspeed": 3, "accelerate": 1, "overaccelerate": 5, "decelerate": 1, "overdecelerate": 5, "damageControl": 6, "pinpointFire": 3, "snapFire": 3, "targeting": 3, "angleDeflectors": 4 },
+      "shields": 1, "auxPower": 1, "r2": false
+    },
+    "b-wing": {
+      "name": "B-wing", "side": "rebel",
+      "pilotGuns": ["SHF", "DLF", "TMF(I)"], "gunnerWeapons": [], "otherWeapons": ["2x 6PT"],
+      "body": [9, 7], "speedMax": 5,
+      "turn": ["1/1","2/2","3/2","4/3","5/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 4, "halfLoop": 7, "slip": 5, "roll": 6, "jink": 5, "bank": 4, "overturn": 12, "overspeed": 6, "accelerate": 3, "overaccelerate": 9, "decelerate": 4, "overdecelerate": 11, "damageControl": 12, "pinpointFire": 5, "snapFire": 6, "targeting": 6, "angleDeflectors": 2 },
+      "shields": 4, "auxPower": 4, "r2": false
+    },
+    "stock-freighter": {
+      "name": "Stock Light Freighter", "side": "neutral",
+      "pilotGuns": [], "gunnerWeapons": ["DLP", "DLP"], "otherWeapons": [],
+      "body": [15, 12], "speedMax": 3,
+      "turn": ["1/1","2/2","4/3","(6)/(5)","(6)/(6)"],
+      "difficulty": { "stabilizer": 6, "halfLoop": 8, "slip": 5, "roll": 8, "jink": 8, "bank": 5, "overturn": 18, "overspeed": 7, "accelerate": 4, "overaccelerate": 12, "decelerate": 4, "overdecelerate": 12, "damageControl": 7, "pinpointFire": 6, "snapFire": 6, "targeting": 8, "angleDeflectors": 4 },
+      "shields": 4, "auxPower": 3, "r2": false, "shieldsAdvancedArcs": { "front": 1, "rear": 1, "left": 1, "right": 1 }
+    },
+    "millennium-falcon": {
+      "name": "Millennium Falcon", "side": "rebel",
+      "pilotGuns": [], "gunnerWeapons": ["QMP", "QMP"], "otherWeapons": ["2x 4CM"],
+      "body": [20, 15], "speedMax": 6,
+      "turn": ["1/1","2/2","3/2","4/3","5/3","6/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 3, "halfLoop": 5, "slip": 3, "roll": 4, "jink": 5, "bank": 4, "overturn": 12, "overspeed": 5, "accelerate": 2, "overaccelerate": 7, "decelerate": 2, "overdecelerate": 6, "damageControl": 5, "pinpointFire": 4, "snapFire": 4, "targeting": 5, "angleDeflectors": 3 },
+      "shields": 8, "auxPower": 5, "r2": false, "shieldsAdvancedArcs": { "front": 3, "rear": 3, "left": 1, "right": 1 }
+    },
+    "slave-i": {
+      "name": "Slave I", "side": "neutral",
+      "pilotGuns": ["DMS"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [13, 10], "speedMax": 5,
+      "turn": ["1/1","2/2","3/2","4/3","5/4","(6)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 4, "halfLoop": 7, "slip": 5, "roll": 5, "jink": 4, "bank": 5, "overturn": 15, "overspeed": 6, "accelerate": 3, "overaccelerate": 10, "decelerate": 3, "overdecelerate": 11, "damageControl": 7, "pinpointFire": 4, "snapFire": 5, "targeting": 5, "angleDeflectors": 3 },
+      "shields": 6, "auxPower": 3, "r2": false, "shieldsAdvancedArcs": { "front": 2, "rear": 2, "left": 1, "right": 1 }
+    },
+    "pirate-pinnace": {
+      "name": "Pirate Pinnace", "side": "neutral",
+      "pilotGuns": ["DHF"], "gunnerWeapons": [], "otherWeapons": [],
+      "body": [12, 10], "speedMax": 7,
+      "turn": ["1/1","2/1","3/2","4/3","5/3","6/4","6/4","(7)/(5)","(7)/(6)"],
+      "difficulty": { "stabilizer": 5, "halfLoop": 6, "slip": 4, "roll": 5, "jink": 5, "bank": 3, "overturn": 10, "overspeed": 5, "accelerate": 3, "overaccelerate": 9, "decelerate": 3, "overdecelerate": 9, "damageControl": 6, "pinpointFire": 5, "snapFire": 5, "targeting": 6, "angleDeflectors": 3 },
+      "shields": 4, "auxPower": 2, "r2": false, "shieldsAdvancedArcs": { "front": 1, "rear": 1, "left": 1, "right": 1 }
+    }
+  }
+}

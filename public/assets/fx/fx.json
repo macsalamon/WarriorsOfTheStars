@@ -1,0 +1,194 @@
+{
+ "shipfire-gld": {
+  "file": "shipfire-gld.webp",
+  "frames": 55,
+  "cols": 9,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 3.67
+ },
+ "shipfire-wht": {
+  "file": "shipfire-wht.webp",
+  "frames": 55,
+  "cols": 9,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 3.67
+ },
+ "shipfire-yel": {
+  "file": "shipfire-yel.webp",
+  "frames": 55,
+  "cols": 9,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 3.67
+ },
+ "shipsmoke-gld": {
+  "file": "shipsmoke-gld.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 5
+ },
+ "shipsmoke-wht": {
+  "file": "shipsmoke-wht.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 5
+ },
+ "shipsmoke-yel": {
+  "file": "shipsmoke-yel.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 5
+ },
+ "boom-ptn": {
+  "file": "boom-ptn.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 3
+ },
+ "boom-rkt": {
+  "file": "boom-rkt.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 2
+ },
+ "boom-trb": {
+  "file": "boom-trb.webp",
+  "frames": 30,
+  "cols": 7,
+  "cw": 256,
+  "ch": 256,
+  "seconds": 3
+ },
+ "flash-lsr-1": {
+  "file": "flash-lsr-1.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-lsr-2": {
+  "file": "flash-lsr-2.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-lsr-3": {
+  "file": "flash-lsr-3.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-lsr-4": {
+  "file": "flash-lsr-4.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-lsr-5": {
+  "file": "flash-lsr-5.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-lsr-6": {
+  "file": "flash-lsr-6.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.8
+ },
+ "flash-ion": {
+  "file": "flash-ion.webp",
+  "frames": 10,
+  "cols": 4,
+  "cw": 128,
+  "ch": 128,
+  "seconds": 0.33
+ },
+ "puff-shield": {
+  "file": "puff-shield.webp",
+  "frames": 15,
+  "cols": 5,
+  "cw": 192,
+  "ch": 192,
+  "seconds": 2
+ },
+ "puff-hull": {
+  "file": "puff-hull.webp",
+  "frames": 18,
+  "cols": 6,
+  "cw": 192,
+  "ch": 192,
+  "seconds": 2.4
+ },
+ "puff-heavy": {
+  "file": "puff-heavy.webp",
+  "frames": 18,
+  "cols": 6,
+  "cw": 192,
+  "ch": 192,
+  "seconds": 2.4
+ },
+ "puff-red": {
+  "file": "puff-red.webp",
+  "frames": 18,
+  "cols": 6,
+  "cw": 192,
+  "ch": 192,
+  "seconds": 2.4
+ },
+ "streak-laser": {
+  "file": "streak-laser.webp",
+  "frames": 10,
+  "cols": 3,
+  "cw": 256,
+  "ch": 128,
+  "seconds": 2
+ },
+ "streak-ion": {
+  "file": "streak-ion.webp",
+  "frames": 10,
+  "cols": 3,
+  "cw": 256,
+  "ch": 128,
+  "seconds": 2
+ },
+ "streak-torpedo": {
+  "file": "streak-torpedo.webp",
+  "frames": 10,
+  "cols": 3,
+  "cw": 256,
+  "ch": 128,
+  "seconds": 2
+ },
+ "streak-missile": {
+  "file": "streak-missile.webp",
+  "frames": 10,
+  "cols": 3,
+  "cw": 256,
+  "ch": 128,
+  "seconds": 2
+ }
+}

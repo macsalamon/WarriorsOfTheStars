@@ -1,0 +1,45 @@
+{
+  "name": "Example Duel",
+  "description": [
+    "An example of a scenario file: two X-wings and a Y-wing with a gunner against three TIE fighters.",
+    "Copy this file, change the forces and give it a new name to make a scenario of your own."
+  ],
+  "_help": [
+    "Lines starting with _ (like this one) are notes for you: the game ignores them. Only name, description, map and sides are used.",
+    "map: 'static' (fixed edges) or 'adjustable' (the map grows as the ships move). Each side needs a faction ('rebels' or 'empire') and a list of ships.",
+    "A ship is { \"typeId\": ..., \"quality\": ... }. Optional: \"gunners\": [qualities] (one entry per gunner), \"tag\": a name for the ship, \"reserve\": a name (the ship waits off the map and enters later).",
+    "Every scenario needs at least one ship on each side."
+  ],
+  "_shipTypes": [
+    "Empire: tie-fighter, tie-interceptor, tie-interceptor-prototype, tie-bomber, imperial-shuttle (1 gunner), star-destroyer (capital ship, Empire only)",
+    "Rebels: x-wing, y-wing-1seat, y-wing-2seat (1 gunner), a-wing, b-wing, mon-calamari (capital ship, Rebels only)",
+    "Either side: stock-freighter (2 gunners), millennium-falcon (2 gunners), slave-i, pirate-pinnace, nebulon-b (capital ship)",
+    "Capital ships have no pilot: leave out the quality and, if you like, give them a gunnery skill, e.g. { \"typeId\": \"star-destroyer\", \"skill\": { \"dice\": 5, \"pips\": 0 } }"
+  ],
+  "_qualities": [
+    "trainee, poor, average, veteran, hotshot (worst to best). Use them for pilots and for gunners."
+  ],
+  "_gunnerExample": [
+    "A ship with a gunner (the y-wing-2seat below): { \"typeId\": \"y-wing-2seat\", \"quality\": \"veteran\", \"gunners\": [\"average\"] }",
+    "The pilot is the 'quality'; the gunners come in the list, one quality per gunner seat. A ship with two seats (freighter, Falcon) takes two entries: \"gunners\": [\"average\", \"poor\"]."
+  ],
+  "map": "static",
+  "sides": [
+    {
+      "faction": "rebels",
+      "ships": [
+        { "typeId": "x-wing", "quality": "average" },
+        { "typeId": "x-wing", "quality": "average" },
+        { "typeId": "y-wing-2seat", "quality": "veteran", "gunners": ["average"] }
+      ]
+    },
+    {
+      "faction": "empire",
+      "ships": [
+        { "typeId": "tie-fighter", "quality": "average" },
+        { "typeId": "tie-fighter", "quality": "average" },
+        { "typeId": "tie-fighter", "quality": "average" }
+      ]
+    }
+  ]
+}

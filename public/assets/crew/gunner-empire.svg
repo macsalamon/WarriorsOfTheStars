@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- a generic gun sight for a gunner, drawn for this game: the Empire's green -->
+  <rect width="200" height="200" fill="#05070d"/>
+  <g fill="none" stroke="#5dff8a" stroke-linecap="round">
+    <circle cx="100" cy="100" r="62" stroke-width="9"/>
+    <circle cx="100" cy="100" r="30" stroke-width="6" opacity="0.7"/>
+    <path d="M100 14 V58 M100 142 V186 M14 100 H58 M142 100 H186" stroke-width="9"/>
+  </g>
+  <circle cx="100" cy="100" r="7" fill="#5dff8a"/>
+</svg>

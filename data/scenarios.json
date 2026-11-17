@@ -1,0 +1,1544 @@
+{
+  "_notes": [
+    "Victory points: ship values are per destroyed ship; pilot values per destroyed pilot by quality.",
+    "showcase: not a regular scenario. Every ship type fights on the Rebel side against one TIE fighter, to look at the pictures of all of them.",
+    "gunnerValue: points for a gunner (a trainee or poor gunner 1, average 2, veteran 4, hot-shot 8). purchase: the ships each side may buy in a points game. A ship, its pilot and its gunners each cost their victory point value.",
+    "scenarios: every scenario of the menu (see src/engine/scenario.ts for the meaning of each field). sides[0] are the Rebels (player 0), sides[1] the Empire (player 1). Dogfight: the ship mixes; bonus victory points are given at the start. Then the Ground Attack and Convoy scenarios.",
+    "Capital ships (Star Destroyer, Mon Calamari cruiser, Nebulon-B frigate) can be bought too: they cost their destroyed-ship value (100, 100, 30) and have no pilot or gunners; the Star Destroyer is Imperial only, the cruiser Rebel only, the frigate for either side."
+  ],
+  "shipValue": {
+    "a-wing": 5,
+    "b-wing": 5,
+    "x-wing": 5,
+    "y-wing-1seat": 4,
+    "y-wing-2seat": 5,
+    "stock-freighter": 4,
+    "millennium-falcon": 15,
+    "tie-fighter": 3,
+    "tie-interceptor": 4,
+    "tie-bomber": 2,
+    "tie-interceptor-prototype": 5,
+    "imperial-shuttle": 10,
+    "slave-i": 8,
+    "pirate-pinnace": 5,
+    "star-destroyer": 100,
+    "mon-calamari": 100,
+    "nebulon-b": 30
+  },
+  "pilotValue": {
+    "trainee": 1,
+    "poor": 2,
+    "average": 4,
+    "veteran": 8,
+    "hotshot": 16
+  },
+  "gunnerValue": {
+    "trainee": 1,
+    "poor": 1,
+    "average": 2,
+    "veteran": 4,
+    "hotshot": 8
+  },
+  "scenarios": {
+    "one": {
+      "name": "Dogfight One",
+      "rule": "28.31",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "poor"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "poor"
+            }
+          ]
+        }
+      ]
+    },
+    "two": {
+      "name": "Dogfight Two",
+      "rule": "28.32",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "average"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "three": {
+      "name": "Dogfight Three",
+      "rule": "28.33",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 4,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "four": {
+      "name": "Dogfight Four",
+      "rule": "28.34",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "hotshot"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "showcase": {
+      "name": "Ship showcase",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-interceptor-prototype",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "average"
+            },
+            {
+              "typeId": "imperial-shuttle",
+              "quality": "average"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "average"
+            },
+            {
+              "typeId": "y-wing-2seat",
+              "quality": "average"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "stock-freighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "millennium-falcon",
+              "quality": "average"
+            },
+            {
+              "typeId": "slave-i",
+              "quality": "average"
+            },
+            {
+              "typeId": "pirate-pinnace",
+              "quality": "average"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "ground1": {
+      "name": "Ground Attack One",
+      "rule": "29.41",
+      "map": "static",
+      "suggests": [
+        "specialWeapons"
+      ],
+      "groundAttack": {
+        "attacker": 0,
+        "doubles": 3,
+        "singles": 6,
+        "mix": 1
+      },
+      "rules": {
+        "roles": [
+          "attacker",
+          "defender"
+        ],
+        "end": [
+          {
+            "kind": "sideGone",
+            "side": 0
+          }
+        ]
+      },
+      "variants": [
+        {
+          "when": {
+            "specialWeapons": true
+          },
+          "add": [
+            {
+              "owner": 1,
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            }
+          ]
+        }
+      ],
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "average"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "ground2": {
+      "name": "Ground Attack Two",
+      "rule": "29.42",
+      "map": "static",
+      "suggests": [
+        "specialWeapons"
+      ],
+      "groundAttack": {
+        "attacker": 1,
+        "doubles": 3,
+        "singles": 6,
+        "mix": 2
+      },
+      "rules": {
+        "roles": [
+          "defender",
+          "attacker"
+        ],
+        "end": [
+          {
+            "kind": "sideGone",
+            "side": 1
+          }
+        ]
+      },
+      "variants": [
+        {
+          "when": {
+            "specialWeapons": true
+          },
+          "replace": [
+            {
+              "owner": 1,
+              "typeId": "tie-fighter",
+              "with": "tie-bomber"
+            }
+          ]
+        }
+      ],
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 2,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "ground3": {
+      "name": "Ground Attack Three",
+      "rule": "29.43",
+      "map": "static",
+      "suggests": [
+        "specialWeapons"
+      ],
+      "groundAttack": {
+        "attacker": 0,
+        "doubles": 8,
+        "singles": 7,
+        "mix": 3
+      },
+      "rules": {
+        "roles": [
+          "attacker",
+          "defender"
+        ],
+        "end": [
+          {
+            "kind": "sideGone",
+            "side": 0
+          }
+        ]
+      },
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "a-wing",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": []
+        }
+      ]
+    },
+    "convoy1": {
+      "name": "Convoy One",
+      "rule": "30.41",
+      "map": "static",
+      "rules": {
+        "roles": [
+          "attacker",
+          "convoy"
+        ],
+        "escapeVp": [
+          {
+            "tag": "convoy",
+            "vp": 10
+          }
+        ],
+        "end": [
+          {
+            "kind": "tagGone",
+            "tag": "convoy"
+          },
+          {
+            "kind": "sideGone",
+            "side": 0
+          }
+        ]
+      },
+      "variants": [
+        {
+          "when": {
+            "adjustableMap": true
+          },
+          "setQuality": [
+            {
+              "owner": 1,
+              "typeIds": [
+                "tie-fighter"
+              ],
+              "quality": "veteran"
+            }
+          ]
+        }
+      ],
+      "sides": [
+        {
+          "faction": "rebels",
+          "role": "attacker",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "role": "convoy",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "stock-freighter",
+              "quality": "poor",
+              "gunners": [
+                "poor"
+              ],
+              "tag": "convoy"
+            }
+          ]
+        }
+      ]
+    },
+    "convoy2": {
+      "name": "Convoy Two",
+      "rule": "30.42",
+      "map": "static",
+      "rules": {
+        "roles": [
+          "convoy",
+          "attacker"
+        ],
+        "escapeVp": [
+          {
+            "tag": "convoy",
+            "vp": 10
+          }
+        ],
+        "end": [
+          {
+            "kind": "tagGone",
+            "tag": "convoy"
+          },
+          {
+            "kind": "sideGone",
+            "side": 1
+          }
+        ],
+        "tieWinner": 0
+      },
+      "variants": [
+        {
+          "when": {
+            "adjustableMap": true
+          },
+          "add": [
+            {
+              "owner": 0,
+              "typeId": "x-wing",
+              "quality": "veteran"
+            }
+          ]
+        }
+      ],
+      "sides": [
+        {
+          "faction": "rebels",
+          "role": "convoy",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "stock-freighter",
+              "quality": "average",
+              "gunners": [
+                "poor"
+              ],
+              "tag": "convoy"
+            },
+            {
+              "typeId": "stock-freighter",
+              "quality": "average",
+              "gunners": [
+                "poor"
+              ],
+              "tag": "convoy"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "role": "attacker",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    },
+    "convoy3": {
+      "name": "Convoy Three",
+      "rule": "30.43",
+      "map": "static",
+      "rules": {
+        "roles": [
+          "attacker",
+          "convoy"
+        ],
+        "escapeVp": [
+          {
+            "tag": "convoy",
+            "vp": 10
+          }
+        ],
+        "end": [
+          {
+            "kind": "tagGone",
+            "tag": "convoy"
+          },
+          {
+            "kind": "sideGone",
+            "side": 0
+          }
+        ],
+        "tieWinner": 0
+      },
+      "variants": [
+        {
+          "when": {
+            "adjustableMap": true
+          },
+          "add": [
+            {
+              "owner": 1,
+              "typeId": "tie-interceptor-prototype",
+              "quality": "veteran"
+            }
+          ]
+        }
+      ],
+      "sides": [
+        {
+          "faction": "rebels",
+          "role": "attacker",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "average"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "average"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "average"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "role": "convoy",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "imperial-shuttle",
+              "quality": "average",
+              "gunners": [
+                "average"
+              ],
+              "tag": "convoy"
+            }
+          ]
+        }
+      ]
+    },
+    "asteroid2": {
+      "name": "Asteroid Run",
+      "map": "static",
+      "asteroids": {
+        "density": "dense"
+      },
+      "startEdges": [
+        [
+          "top",
+          "bottom"
+        ],
+        null
+      ],
+      "reserves": {
+        "ties": {
+          "entry": {
+            "kind": "scheduled",
+            "afterTurn": 1
+          },
+          "along": {
+            "kind": "startEdge",
+            "side": 0
+          }
+        }
+      },
+      "rules": {
+        "roles": [
+          "convoy",
+          "attacker"
+        ],
+        "asteroidsRest": 1,
+        "objectives": [
+          "Fly the Falcon off the map across the edge opposite the one you started from. You lose if it is destroyed.",
+          "Destroy the Falcon before it leaves the map across the far edge. Your ships come in along its start edge after game-turn 1."
+        ],
+        "verdicts": [
+          {
+            "when": {
+              "kind": "escaped",
+              "tag": "runner"
+            },
+            "winner": 0
+          },
+          {
+            "when": {
+              "kind": "destroyed",
+              "tag": "runner"
+            },
+            "winner": 1
+          },
+          {
+            "when": {
+              "kind": "sideGone",
+              "side": 1
+            },
+            "winner": 0
+          }
+        ],
+        "exits": [
+          {
+            "tag": "runner",
+            "only": "opposite",
+            "of": 0
+          }
+        ]
+      },
+      "sides": [
+        {
+          "faction": "rebels",
+          "role": "convoy",
+          "ships": [
+            {
+              "typeId": "millennium-falcon",
+              "quality": "hotshot",
+              "tag": "runner"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "role": "attacker",
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran",
+              "reserve": "ties"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran",
+              "reserve": "ties"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran",
+              "reserve": "ties"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran",
+              "reserve": "ties"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran",
+              "reserve": "ties"
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers1": {
+      "name": "Star Destroyers One",
+      "rule": "31.41",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers2": {
+      "name": "Star Destroyers Two",
+      "rule": "31.42",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "mon-calamari",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "poor"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "poor"
+            },
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers3": {
+      "name": "Star Destroyers Three",
+      "rule": "31.42",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "average"
+            },
+            {
+              "typeId": "mon-calamari",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "average"
+            },
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers4": {
+      "name": "Star Destroyers Four",
+      "rule": "31.42",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 4,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "mon-calamari",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers5": {
+      "name": "Star Destroyers Five",
+      "rule": "31.42",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 1,
+          "ships": [
+            {
+              "typeId": "x-wing",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "mon-calamari",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers6": {
+      "name": "Star Destroyers Six",
+      "rule": "31.43",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 2,
+          "ships": [
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 6,
+                "pips": 0
+              }
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers7": {
+      "name": "Fleet Battle",
+      "rule": "owner",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "mon-calamari",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "a-wing",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "b-wing",
+              "quality": "hotshot"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "star-destroyer",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            },
+            {
+              "typeId": "tie-interceptor-prototype",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "veteran"
+            }
+          ]
+        }
+      ]
+    },
+    "destroyers8": {
+      "name": "Frigate Duel",
+      "rule": "owner",
+      "sides": [
+        {
+          "faction": "rebels",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "nebulon-b",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "y-wing-1seat",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "x-wing",
+              "quality": "hotshot"
+            }
+          ]
+        },
+        {
+          "faction": "empire",
+          "bonusVp": 0,
+          "ships": [
+            {
+              "typeId": "nebulon-b",
+              "quality": "average",
+              "skill": {
+                "dice": 5,
+                "pips": 0
+              }
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "hotshot"
+            },
+            {
+              "typeId": "tie-interceptor",
+              "quality": "veteran"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-fighter",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "average"
+            },
+            {
+              "typeId": "tie-bomber",
+              "quality": "average"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "purchase": {
+    "rebels": [
+      "x-wing",
+      "y-wing-1seat",
+      "y-wing-2seat",
+      "a-wing",
+      "b-wing",
+      "stock-freighter",
+      "millennium-falcon",
+      "pirate-pinnace",
+      "mon-calamari",
+      "nebulon-b"
+    ],
+    "empire": [
+      "tie-fighter",
+      "tie-interceptor",
+      "tie-interceptor-prototype",
+      "tie-bomber",
+      "stock-freighter",
+      "imperial-shuttle",
+      "slave-i",
+      "pirate-pinnace",
+      "star-destroyer",
+      "nebulon-b"
+    ]
+  }
+}
